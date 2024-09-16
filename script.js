@@ -1,30 +1,24 @@
-/*Name this external file gallery.js*/
-
-function upDate(previewPic){
- /* In this function you should 
-    1) change the url for the background image of the div with the id = "image" 
-    to the source file of the preview image
-    
-    2) Change the text  of the div with the id = "image" 
-    to the alt text of the preview image 
-    */
-    // Cambiar el fondo al src de la imagen previa
+function upDate(previewPic) {
     document.getElementById('image').style.backgroundImage = `url(${previewPic.src})`;
-    // Cambiar el texto al alt de la imagen previa
     document.getElementById('image').innerHTML = previewPic.alt;
-	}
+    console.log("upDate triggered");
+  }
 
-	function unDo(){
-     /* In this function you should 
-    1) Update the url for the background image of the div with the id = "image" 
-    back to the orginal-image.  You can use the css code to see what that original URL was
-    
-    2) Change the text  of the div with the id = "image" 
-    back to the original text.  You can use the html code to see what that original text was
-    */
-		    // Restaurar el fondo a su estado original
-            document.getElementById('image').style.backgroundImage = "none";
-            // Restaurar el texto a su estado original
-            document.getElementById('image').innerHTML = "Hover over an image below to display here.";
-              
-	}
+  // Función para restaurar el contenido original del div #image
+  function unDo() {
+    document.getElementById('image').style.backgroundImage = "none";
+    document.getElementById('image').innerHTML = "Hover over an image below to display here.";
+    console.log("unDo triggered");
+  }
+
+  // Usar un bucle for para recorrer cada imagen y añadir tabindex
+  const images = document.querySelectorAll('.preview');
+  for (let i = 0; i < images.length; i++) {
+    images[i].setAttribute('tabindex', '0'); // Añadir tabindex para accesibilidad
+    images[i].addEventListener('focus', function() {
+      console.log('Image focused: ', images[i].alt); // Consola cuando la imagen recibe foco
+    });
+    images[i].addEventListener('blur', function() {
+      console.log('Image blurred: ', images[i].alt); // Consola cuando la imagen pierde foco
+    });
+  }
